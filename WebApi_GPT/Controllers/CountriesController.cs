@@ -51,4 +51,11 @@ public class CountriesController : ControllerBase
             ))
         ).ToList();
     }
+
+    public static List<CountryDto> FilterCountriesByPopulation(List<CountryDto> countries, int filterByPopulationInMillions)
+    {
+        int filterByPopulation = filterByPopulationInMillions * 1000000; // Convert millions to actual population
+        return countries.Where(c => c.population < filterByPopulation).ToList();
+    }
+}
 }
