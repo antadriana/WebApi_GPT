@@ -18,13 +18,13 @@ jobs:
         dotnet-version: '6.0.x'  # adjust this to your project's .NET version
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore WebApi_GPT/WebApi_GPT.csproj  # replace 'YourSolutionFolder/YourProject.sln' with the relative path to your .sln file
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build WebApi_GPT/WebApi_GPT.csproj --no-restore --configuration Release  # replace 'YourSolutionFolder/YourProject.sln' with the relative path to your .sln file
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test WebApi_GPT/WebApi_GPT.csproj --no-build --verbosity normal  # replace 'YourSolutionFolder/YourProject.sln' with the relative path to your .sln file
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
