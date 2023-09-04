@@ -1,0 +1,105 @@
+Hello
+assume that you're 10 years experianced dotnet developer
+Now you're working on web api core app with .net6
+you have to create a function that accepts a string as a parameter and can filter by country `name/common`.
+
+You have such dto:
+using Newtonsoft.Json;
+namespace WebApi_GPT;
+
+public class CountryDto
+{
+    [JsonProperty("name")]
+    public NameDto name { get; set; }
+    public int population { get; set; }
+}
+
+public class NameDto
+{
+
+    public string? common { get; set; }
+    public string? official { get; set; }
+    public Dictionary<string, NativeNameDto>? nativeName { get; set; }
+}
+
+public class NativeNameDto
+{
+    public string? official { get; set; }
+    public string? common { get; set; }
+}
+The filter should search for countries names that contains string from attributes (e.g. providing `st` as attribute I could find `Estonia`, providing `Sp` I could find `Spain`) 
+
+search should be case insensitive (e.g., providing `sT` should find `Estonia`) 
+
+ChatGPT
+Certainly, you can accomplish this task using LINQ in C#. Given that you're using .NET 6 and have a decade of experience in .NET development, I assume you're familiar with some of its advanced features. Below is an example of how you might create such a function. This function takes a list of CountryDto objects and a string to filter by, then returns a filtered list of CountryDto objects.
+
+csharp
+Copy code
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace WebApi_GPT
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<CountryDto> countries = new List<CountryDto>
+            {
+                new CountryDto { name = new NameDto { common = "United States", official = "United States of America" }, population = 331449000 },
+                new CountryDto { name = new NameDto { common = "Estonia", official = "Republic of Estonia" }, population = 1326535 },
+                new CountryDto { name = new NameDto { common = "Spain", official = "Kingdom of Spain" }, population = 46754778 }
+                // ... and so on
+            };
+
+            string filter = "st";
+            var filteredCountries = FilterCountriesByName(countries, filter);
+
+            foreach (var country in filteredCountries)
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(country));
+            }
+        }
+
+        public static List<CountryDto> FilterCountriesByName(List<CountryDto> countries, string filter)
+        {
+            return countries.Where(c =>
+                (c.name?.common != null && c.name.common.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                (c.name?.official != null && c.name.official.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                (c.name?.nativeName != null && c.name.nativeName.Values.Any(n =>
+                    (n.official != null && n.official.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                    (n.common != null && n.common.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0)
+                ))
+            ).ToList();
+        }
+    }
+
+    public class CountryDto
+    {
+        [JsonProperty("name")]
+        public NameDto name { get; set; }
+        public int population { get; set; }
+    }
+
+    public class NameDto
+    {
+        public string? common { get; set; }
+        public string? official { get; set; }
+        public Dictionary<string, NativeNameDto>? nativeName { get; set; }
+    }
+
+    public class NativeNameDto
+    {
+        public string? official { get; set; }
+        public string? common { get; set; }
+    }
+}
+In this example:
+
+The function FilterCountriesByName is defined, which accepts a list of CountryDto objects and a filter string.
+The function uses LINQ's Where method to filter the countries based on the provided filter string. It performs a case-insensitive search (StringComparison.OrdinalIgnoreCase) for the filter string within the common and official name attributes.
+If any of the names contain the filter string, the country is included in the resulting list.
+You can adjust this example as needed for your specific requirements.
