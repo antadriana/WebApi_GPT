@@ -67,5 +67,10 @@ public class CountriesController : ControllerBase
             _ => throw new ArgumentException("Invalid sort order. Use 'ascend' or 'descend'.")
         };
     }
+
+    public static List<CountryDto> LimitNumberOfRecords(List<CountryDto> countries, int limit)
+    {
+        return countries.Take(limit).ToList();
+    }
 }
 

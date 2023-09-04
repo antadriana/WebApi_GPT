@@ -1,0 +1,73 @@
+Peses now create a function that accepts numbers as an attribute and can limit the number of records.  
+
+The functionality should accept a number and retrieve first n records (e.g., providing number `15` I should receive 15 first records from API).  
+
+ChatGPT
+Certainly, limiting the number of records returned is another common operation and can be done with the Take LINQ method. Here's how to create a function that limits the number of records based on a given number:
+
+csharp
+Copy code
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace WebApi_GPT
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<CountryDto> countries = new List<CountryDto>
+            {
+                new CountryDto { name = new NameDto { common = "United States", official = "United States of America" }, population = 331449000 },
+                new CountryDto { name = new NameDto { common = "Estonia", official = "Republic of Estonia" }, population = 1326535 },
+                new CountryDto { name = new NameDto { common = "Spain", official = "Kingdom of Spain" }, population = 46754778 },
+                // ... and so on
+            };
+
+            int limit = 2; // Number of records to retrieve
+            var limitedCountries = LimitNumberOfRecords(countries, limit);
+
+            foreach (var country in limitedCountries)
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(country));
+            }
+        }
+
+        public static List<CountryDto> LimitNumberOfRecords(List<CountryDto> countries, int limit)
+        {
+            return countries.Take(limit).ToList();
+        }
+    }
+
+    public class CountryDto
+    {
+        [JsonProperty("name")]
+        public NameDto name { get; set; }
+        public int population { get; set; }
+    }
+
+    public class NameDto
+    {
+        public string? common { get; set; }
+        public string? official { get; set; }
+        public Dictionary<string, NativeNameDto>? nativeName { get; set; }
+    }
+
+    public class NativeNameDto
+    {
+        public string? official { get; set; }
+        public string? common { get; set; }
+    }
+}
+In this example:
+
+The function LimitNumberOfRecords is created, which takes a list of CountryDto and an integer limit as parameters.
+Inside the function, I use the Take LINQ method to limit the number of records based on the limit provided.
+The function returns a list containing only the first n records, where n is the limit specified.
+You can, of course, combine this with your sorting and filtering functions to apply multiple operations in sequence. For example, you could first filter the countries, then sort them, and finally limit the number of records returned.
+
+
+
+
