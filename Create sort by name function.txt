@@ -1,0 +1,74 @@
+And now I ask you to create a function that accepts a string as an attribute and can sort data by ` name/common `.  
+
+The sort should accept string ` ascend or descend ` and sort countries name by provided attribute (e.g. providing attribute ascend all countries should be sorted from A to Z) 
+
+ChatGPT
+Sure, sorting is another task that's quite straightforward with LINQ. Below is a function named SortCountriesByName that accepts a list of CountryDto objects and a string representing the sorting direction ("ascend" or "descend").
+
+csharp
+Copy code
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace WebApi_GPT
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<CountryDto> countries = new List<CountryDto>
+            {
+                new CountryDto { name = new NameDto { common = "United States", official = "United States of America" }, population = 331449000 },
+                new CountryDto { name = new NameDto { common = "Estonia", official = "Republic of Estonia" }, population = 1326535 },
+                new CountryDto { name = new NameDto { common = "Spain", official = "Kingdom of Spain" }, population = 46754778 }
+                // ... and so on
+            };
+
+            string sortOrder = "descend";
+            var sortedCountries = SortCountriesByName(countries, sortOrder);
+
+            foreach (var country in sortedCountries)
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(country));
+            }
+        }
+
+        public static List<CountryDto> SortCountriesByName(List<CountryDto> countries, string sortOrder)
+        {
+            return sortOrder.ToLower() switch
+            {
+                "ascend" => countries.OrderBy(c => c.name?.common).ToList(),
+                "descend" => countries.OrderByDescending(c => c.name?.common).ToList(),
+                _ => throw new ArgumentException("Invalid sort order. Use 'ascend' or 'descend'.")
+            };
+        }
+    }
+
+    public class CountryDto
+    {
+        [JsonProperty("name")]
+        public NameDto name { get; set; }
+        public int population { get; set; }
+    }
+
+    public class NameDto
+    {
+        public string? common { get; set; }
+        public string? official { get; set; }
+        public Dictionary<string, NativeNameDto>? nativeName { get; set; }
+    }
+
+    public class NativeNameDto
+    {
+        public string? official { get; set; }
+        public string? common { get; set; }
+    }
+}
+In this example:
+
+The SortCountriesByName function accepts a list of CountryDto and a string sortOrder.
+The function uses a C# switch expression to decide whether to sort the countries in ascending or descending order based on the common name attribute. The .OrderBy() method sorts in ascending order, while .OrderByDescending() sorts in descending order.
+If the provided sortOrder is neither "ascend" nor "descend", an ArgumentException is thrown.
+As with the filter functions, you could combine this sort function with other operations to build more complex query capabilities.

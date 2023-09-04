@@ -57,5 +57,15 @@ public class CountriesController : ControllerBase
         int filterByPopulation = filterByPopulationInMillions * 1000000; // Convert millions to actual population
         return countries.Where(c => c.population < filterByPopulation).ToList();
     }
+
+    public static List<CountryDto> SortCountriesByName(List<CountryDto> countries, string sortOrder)
+    {
+        return sortOrder.ToLower() switch
+        {
+            "ascend" => countries.OrderBy(c => c.name?.common).ToList(),
+            "descend" => countries.OrderByDescending(c => c.name?.common).ToList(),
+            _ => throw new ArgumentException("Invalid sort order. Use 'ascend' or 'descend'.")
+        };
+    }
 }
 
