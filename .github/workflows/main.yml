@@ -1,20 +1,38 @@
-name: CI/CD Pipeline
+name: .NET SonarCloud Workflow
 
 on:
   push:
-    branches: 
-      - master  # replace with your default branch if it's not named "main"
+    branches:
+      - master
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Run SonarCloud Analysis
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'  # adjust this to your project's .NET version
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Run SonarCloud Analysis
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.projectKey=antadriana_WebApi_GPT
+          -Dsonar.organization=antadriana
