@@ -30,3 +30,4 @@ C:\Users\aanton\OneDrive - SoftServe, Inc\Desktop\SoftServeGPT\New folder\WebApi
 C:\Users\aanton\OneDrive - SoftServe, Inc\Desktop\SoftServeGPT\New folder\WebApi_GPT\obj\Debug\net6.0\WebApi_GPT.pdb
 C:\Users\aanton\OneDrive - SoftServe, Inc\Desktop\SoftServeGPT\New folder\WebApi_GPT\obj\Debug\net6.0\WebApi_GPT.genruntimeconfig.cache
 C:\Users\aanton\OneDrive - SoftServe, Inc\Desktop\SoftServeGPT\New folder\WebApi_GPT\obj\Debug\net6.0\ref\WebApi_GPT.dll
+C:\Users\aanton\OneDrive - SoftServe, Inc\Desktop\SoftServeGPT\New folder\WebApi_GPT\bin\Debug\net6.0\Newtonsoft.Json.dll
