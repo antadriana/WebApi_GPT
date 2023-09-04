@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "jutPN3SGwP6cjmd8QTMgtvzVrh87vzXJn058V7aKfac=",
+  "Source": "WebApi_GPT",
+  "BasePath": "_content/WebApi_GPT",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

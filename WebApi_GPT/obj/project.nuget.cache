@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "TKy9v0f9Sd7KuTvBQr66t77A8jpYE/nlQ06m+2CbJkKpfELuBGTbBJVGcugMzQU0JHOoT2wms9xM8o/JabTMWQ==",
+  "dgSpecHash": "s3gGkH7ZhlRDCMiwUcBP/X0RVqmiEg4+2vTYBbyAYwjXWm//WQ4N4681hImRby0bz6EfHbeuZBDt33j2aPJcsA==",
   "success": true,
   "projectFilePath": "C:\\Users\\aanton\\OneDrive - SoftServe, Inc\\Desktop\\SoftServeGPT\\New folder\\WebApi_GPT\\WebApi_GPT.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\aanton\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.1\\microsoft.aspnetcore.openapi.7.0.1.nupkg.sha512",
     "C:\\Users\\aanton\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
-    "C:\\Users\\aanton\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\aanton\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\aanton\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\aanton\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\aanton\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
