@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 namespace WebApi_GPT;
@@ -37,5 +38,17 @@ public class CountriesController : ControllerBase
         {
             return StatusCode((int)response.StatusCode, "Error fetching countries");
         }
+    }
+
+    public static List<CountryDto> FilterCountriesByName(List<CountryDto> countries, string filter)
+    {
+        return countries.Where(c =>
+            (c.name?.common != null && c.name.common.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) ||
+            (c.name?.official != null && c.name.official.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) ||
+            (c.name?.nativeName != null && c.name.nativeName.Values.Any(n =>
+                (n.official != null && n.official.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                (n.common != null && n.common.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0)
+            ))
+        ).ToList();
     }
 }
